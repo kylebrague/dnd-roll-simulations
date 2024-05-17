@@ -36,7 +36,7 @@ def multicharacter_simulation(n=1000, num_characters=4, enable_logging=False):
                     log(pc.roll_death_saving_throw())
                 if pc.is_alive or party.is_wiped:
                     break
-                
+
             if any((pc.is_alive for pc in party)):
                 log(
                     f"Party saved! {[pc.name for pc in party if pc.is_alive]} characters are alive."
@@ -58,6 +58,9 @@ def multicharacter_simulation(n=1000, num_characters=4, enable_logging=False):
     print(f"SAVED: {(len(saved_parties) / n) * 100}%")
     print(f"Averaged {average_characters_alive} characters alive per saved party.")
 
+
+p_stabilize_by_round = [0.05, 0.0475, 0.168, 0.197625, 0.132]
+p_die_by_round = [0.0, 0.0425, 0.1145, 0.139875, 0.108]
 
 if __name__ == "__main__":
     argtypes = [int, int, bool]

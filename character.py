@@ -53,7 +53,7 @@ class Character:
         self.log(f"{self.name} added {roll_result} to failures.")
         self.death_saving_throw_state.failures -= roll_result
         if self.death_saving_throw_state.failures >= 3:
-            self.kill()
+            self.die()
             self.death_saving_throw_state.reset()
             self.log(f"{self.name} has died.")
             return {**default_dict, "result": "KILLED", "notes": "DEAD"}
@@ -73,23 +73,29 @@ class Character:
     is_dead: bool = property(get_is_dead)
 
     def down(self):
-        self.log(f"{self.name} is down.")
         self.death_saving_throw_state.in_progress = True
         self.is_downed = True
         self.is_alive = False
+        self.log(f"{self.name} is down.")
+        return self
 
     def revive(self):
-        self.log(f"{self.name} is revived.")
         self.is_downed = False
         self.is_alive = True
+        self.log(f"{self.name} is revived.")
+        return self
 
-    def kill(self):
-        self.log(f"{self.name} is kill.")
+
+    def die(self):
         self.is_downed = False
         self.is_alive = False
+        self.log(f"{self.name} is kill.")
+        return self
 
     def get_status(self):
         return {"alive": self.is_alive, "downed": self.is_downed, "dead": self.is_dead}
+    
+    status = property(get_status)
 
     def __str__(self):
         return f"{self.name} is {'alive' if self.is_alive else 'downed' if self.is_downed else 'dead'}."

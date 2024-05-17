@@ -29,3 +29,4 @@ class DeathSavingThrowState():
         self.in_progress = False
         self.successes = 0
         self.failures = 0
+
