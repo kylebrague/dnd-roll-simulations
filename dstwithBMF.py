@@ -1,3 +1,6 @@
+"""Currently incorect, need to fix the code to get the correct output
+"""
+
 from scipy.stats import binom
 
 def probability_of_stabilizing_with_automatic_revival():
